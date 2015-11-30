@@ -56,12 +56,23 @@ def mark_online(node, now):
     node['flags']['online'] = True
 
 
-def import_nodeinfo(nodes, nodeinfos, now, assume_online=False):
+def overrideFields(dest, src, fields):
+    for field in fields:
+        if field in src:
+            dest[field] = src[field]
+        else:
+            dest.pop(field, None)
+
+
+def import_nodeinfo(nodes, nodeinfos, now, assume_online=False, statics=False):
     for nodeinfo in filter(lambda d: 'node_id' in d, nodeinfos):
-        node = nodes.setdefault(nodeinfo['node_id'], {'flags': dict()})
-        node['nodeinfo'] = nodeinfo
-        node['flags']['online'] = False
-        node['flags']['gateway'] = False
+        node = nodes.setdefault(nodeinfo['node_id'], {'flags': {'online': False, 'gateway': False}})
+
+        if statics:
+            node['nodeinfo'] = node.setdefault('nodeinfo', {})
+            overrideFields(node['nodeinfo'], nodeinfo, ['hostname', 'location', 'node_id'])
+        else:
+            node['nodeinfo'] = nodeinfo
 
         if assume_online:
             mark_online(node, now)

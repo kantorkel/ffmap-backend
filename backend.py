@@ -84,9 +84,9 @@ def main(params):
     # integrate static aliases data
     for aliases in params['aliases']:
         with open(aliases, 'r') as f:
-            nodeinfo = validate_nodeinfos(json.load(f))
-            nodes.import_nodeinfo(nodedb['nodes'], nodeinfo,
-                                  now, assume_online=False)
+#           nodeinfo = validate_nodeinfos(json.load(f))
+            nodes.import_nodeinfo(nodedb['nodes'], json.load(f),
+                                  now, assume_online=False, statics=True)
 
     nodes.reset_statistics(nodedb['nodes'])
     for alfred in alfred_instances:
@@ -156,7 +156,6 @@ def main(params):
                   os.path.join(params['dest_dir'], 'nodes'))
         rrd.update_database(nodedb['nodes'])
         rrd.update_images()
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
