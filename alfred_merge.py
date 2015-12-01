@@ -27,9 +27,9 @@ class alfred_merge:
     self.request_data_type_2 = request_data_type_2
 
   def aliases(self):
-    output = subprocess.check_output(["/usr/local/sbin/alfred-json","-z", "-r",str(self.request_data_type_1),"-f","json"])
+    output = subprocess.check_output(["/usr/local/bin/alfred-json","-z", "-r",str(self.request_data_type_1),"-f","json"])
     alfred_data_1 = json.loads(output.decode("utf-8"))
-    output = subprocess.check_output(["/usr/local/sbin/alfred-json","-z", "-r",str(self.request_data_type_2),"-f","json"])
+    output = subprocess.check_output(["/usr/local/bin/alfred-json","-z", "-r",str(self.request_data_type_2),"-f","json"])
     alfred_data_2 = json.loads(output.decode("utf-8"))
     
     return json.dumps(rec_merge(alfred_data_1, alfred_data_2))
