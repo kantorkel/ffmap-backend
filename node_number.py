@@ -3,27 +3,20 @@
 import time
 import datetime
 import json
+import urllib2
 
 #Datei oeffnen
-f = open('/var/www/meshviewer/nodelist.json')
-
-#JSON einlesen
-data = json.load(f)
-
-#Nodes attribut aussortieren
-nodes = data['nodes']
+Datei = urllib2.urlopen('https://map.hamburg.freifunk.net/nodes.json')
+Datei_Sued = urllib2.urlopen('https://map.hamburg.freifunk.net/hhsued/mv1/nodes.json')
 
 #Zaehler mit Wert 0 anlegen
 num_nodes = 0
 
-#Fuer jeden Knoten in nodes
-for node in nodes:
-        #Status Attribut aussortieren
-        status = node['status']
-
-        #Wenn der Status online entaehlt, hochzaehlen
-        if status['online']:
-                num_nodes += 1
+Text = Datei.read()
+n = Text.count('"online": true')
+Text = Datei_Sued.read()
+n_Sued = Text.count('"online":true')
+num_nodes = n + n_Sued
 
 #Zeit holen
 thetime = datetime.datetime.now().isoformat()
