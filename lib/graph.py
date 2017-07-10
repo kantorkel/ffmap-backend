@@ -25,7 +25,6 @@ def mark_vpn(graph, vpn_macs):
     components = map(frozenset, nx.weakly_connected_components(graph))
     components = filter(vpn_macs.intersection, components)
     nodes = reduce(lambda a, b: a | b, components, set())
-
     for node in nodes:
         for k, v in graph[node].items():
             v['vpn'] = True

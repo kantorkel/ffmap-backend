@@ -7,6 +7,10 @@ def build_mac_table(nodes):
     macs = dict()
     for node_id, node in nodes.items():
         try:
+            macs[node['network']['mac']] = node_id
+        except KeyError:
+            pass
+        try:
             for mac in node['nodeinfo']['network']['mesh_interfaces']:
                 macs[mac] = node_id
         except KeyError:
@@ -20,6 +24,11 @@ def build_mac_table(nodes):
 
         try:
             for mac in node['nodeinfo']['network']['mesh']['bat0']['interfaces']['tunnel']:
+                macs[mac] = node_id
+        except KeyError:
+            pass
+        try:
+            for mac in node['nodeinfo']['network']['mesh']['bat-ffhh']['interfaces']['tunnel']:
                 macs[mac] = node_id
         except KeyError:
             pass
@@ -146,6 +155,11 @@ def import_mesh_ifs_vis_data(nodes, vis_data):
             pass
 
         try:
+            ifs = ifs.union(set(node['nodeinfo']['network']['mesh']['bat-ffhh']['interfaces']['tunnel']))
+        except KeyError:
+            pass
+
+        try:
             ifs = ifs.union(set(node['nodeinfo']['network']['mesh']['bat0']['interfaces']['other']))
         except KeyError:
             pass
@@ -166,7 +180,6 @@ def import_vis_clientcount(nodes, vis_data):
 def mark_gateways(nodes, gateways):
     macs = build_mac_table(nodes)
     gateways = filter(lambda d: d in macs, gateways)
-
     for node in map(lambda d: nodes[macs[d]], gateways):
         node['flags']['gateway'] = True
 

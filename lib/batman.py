@@ -96,7 +96,3 @@ if __name__ == "__main__":
     bc = Batman()
     vd = bc.vis_data()
     gw = bc.gateway_list()
-    for x in vd:
-        print(x)
-    print(gw)
-    print(bc.gateway_mode())

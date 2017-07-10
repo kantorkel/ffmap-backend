@@ -102,7 +102,6 @@ def main(params):
     for batman in batman_instances:
         vd = batman.vis_data()
         gwl = batman.gateway_list()
-
         mesh_info.append((vd, gwl))
 
     # update nodedb from batman-adv data
@@ -130,6 +129,8 @@ def main(params):
         for id, node in nodes.items():
             try:
                 for mac in node["nodeinfo"]["network"]["mesh"]["bat0"]["interfaces"]["tunnel"]:
+                    macs.add(mac)
+                for mac in node["nodeinfo"]["network"]["mesh"]["bat-ffhh"]["interfaces"]["tunnel"]:
                     macs.add(mac)
             except KeyError:
                 pass

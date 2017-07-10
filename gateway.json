@@ -1,86 +1,29 @@
 [
   {
-    "node_id": "deadbeef0101",
-    "hostname": "gw01",
-    "network": {
-      "mesh": {
-        "bat0": {
-          "interfaces": {
-            "tunnel": [
-              "de:ad:be:ff:01:01",
-              "de:ad:bf:ff:01:01"
-            ]
-          }
-        }
-      }
-    }
+    "node_id": "deadbfff0101",
+    "hostname": "gw01"
   },
   {
     "node_id": "deadbeef0505",
-    "hostname": "gw02",
+    "hostname": "gw02.hamburg.freifunk.net",
     "network": {
-      "mesh": {
-        "bat0": {
-          "interfaces": {
-            "tunnel": [
-              "de:ad:be:ff:05:05",
-              "de:ad:be:ff:05:06",
-              "de:ad:bf:ff:05:05"
-            ]
-          }
+        "mac": "de:ad:be:ef:05:05",
+        "mesh": {
+            "bat0": {
+                "interfaces": {
+                    "tunnel": [
+                        "de:ad:be:ff:05:05",
+                        "de:ad:be:fc:05:05",
+                        "de:ad:bf:ff:05:05"
+                    ]
+                }
+            }
         }
-      }
     }
   },
   {
-    "node_id": "deadbeef0303",
-    "hostname": "gw03",
-    "network": {
-      "mesh": {
-        "bat0": {
-          "interfaces": {
-            "tunnel": [
-              "de:ad:be:ff:03:03",
-              "de:ad:bf:ff:03:03"
-            ]
-          }
-        }
-      }
-    }
-  },
-  {
-    "node_id": "deadbfff2222",
-    "hostname": "gw05",
-    "network": {
-      "mesh": {
-        "bat0": {
-          "interfaces": {
-            "tunnel": [
-              "de:ad:be:ff:22:22",
-              "de:ad:be:ff:22:23",
-              "de:ad:bf:ff:22:22"
-            ]
-          }
-        }
-      }
-    }
-  },
-  {
-    "node_id": "deadbeef8888",
-    "hostname": "gw08",
-    "network": {
-      "mesh": {
-        "bat0": {
-          "interfaces": {
-            "tunnel": [
-              "de:ad:be:ff:88:88",
-              "de:ad:be:ff:88:89",
-              "de:ad:bf:ff:88:88"
-            ]
-          }
-        }
-      }
-    }
+    "node_id": "00163efb9d8d",
+    "hostname": "gw03"
   }
 ]
 
