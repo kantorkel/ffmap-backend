@@ -27,8 +27,13 @@ def main(params):
     os.makedirs(params['dest_dir'], exist_ok=True)
 
     nodes_fn = os.path.join(params['dest_dir'], 'nodes.json')
+    tmp_nodes_fn = os.path.join(params['dest_dir'], 'nodes.json.tmp')
+
     graph_fn = os.path.join(params['dest_dir'], 'graph.json')
+    tmp_graph_fn = os.path.join(params['dest_dir'], 'graph.json.tmp')
+
     nodelist_fn = os.path.join(params['dest_dir'], 'nodelist.json')
+    tmp_nodelist_fn = os.path.join(params['dest_dir'], 'nodelist.json.tmp')
 
     now = datetime.utcnow().replace(microsecond=0)
 
@@ -137,17 +142,21 @@ def main(params):
     batadv_graph = graph.to_undirected(batadv_graph)
 
     # write processed data to dest dir
-    with open(nodes_fn, 'w') as f:
+    with open(tmp_nodes_fn, 'w') as f:
         json.dump(nodedb, f)
 
     graph_out = {'batadv': json_graph.node_link_data(batadv_graph),
                  'version': GRAPH_VERSION}
 
-    with open(graph_fn, 'w') as f:
+    with open(tmp_graph_fn, 'w') as f:
         json.dump(graph_out, f)
 
-    with open(nodelist_fn, 'w') as f:
+    with open(tmp_nodelist_fn, 'w') as f:
         json.dump(export_nodelist(now, nodedb), f)
+
+    os.rename(tmp_nodes_fn, nodes_fn)
+    os.rename(tmp_graph_fn, graph_fn)
+    os.rename(tmp_nodelist_fn, nodelist_fn)
 
     # optional rrd graphs (trigger with --rrd)
     if params['rrd']:
